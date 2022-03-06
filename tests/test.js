@@ -8,14 +8,7 @@ module.exports = async function(query, vendor) {
         console.log('vendor:', e.title)
         console.log('website:', e.website)
         console.log('result count:', e.result.length)
-        for (let item of e.result) {
-          const { available, sld, tld, currency, price } = item
-          if (available) {
-            console.log(`${sld + tld} is available at ${currency} ${price}`)
-          } else {
-            console.log(`${sld + tld} is not available`)
-          }
-        }
+        console.table(e.result)
       } else throw e.message
     })
     .catch(e => {
