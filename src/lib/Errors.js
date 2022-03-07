@@ -1,4 +1,4 @@
-class ParseQueryError extends Error {
+export class ParseQueryError extends Error {
   constructor() {
     super("Please follow format: 'domain.tld' or 'domain'");
     this.code = "DOMAIN_CHECKER_PARSE_QUERY_ERROR"
@@ -10,8 +10,4 @@ class ParseQueryError extends Error {
       "\n" +
       this.stack.split('\n').slice(3).join('\n');
   }
-}
-
-module.exports = {
-  ParseQueryError
 }
