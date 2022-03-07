@@ -4,7 +4,7 @@ const scrape = (tlds) => {
   const result = []
   for (let tld of tlds) {
     result.push({
-      available: !(tld.status == "NOT AVAILABLE") ? true : false,
+      available: !(tld.status == "NOT AVAILABLE" || tld.status === null) ? true : false,
       sld: tld.domain,
       tld: tld.tld,
       currency: tld.currency,
