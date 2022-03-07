@@ -1,8 +1,21 @@
-module.exports = (query) => {
-  const { domain, tld } = require('./lib/parseQuery')(query);
+import freenom from './vendor/freenom.js'
+import google from './vendor/google.js'
+import parseQuery from './lib/parseQuery.js'
 
-  return {
-    'freenom': async () => await require('./vendor/freenom')({ domain, tld }),
-    'google': async () => await require('./vendor/google')({ domain, tld }),
-  }
+export const methods = {
+  freenom,
+  google
 }
+
+export const vendors = Object.keys(methods)
+
+const check = (query) => {
+  const { domain, tld } = parseQuery(query);
+  const res = {}
+  for (let vendor of vendors) {
+    res[ vendor ] = async () => await methods[ vendor ]({domain, tld})
+  }
+  return res
+}
+
+export default check
