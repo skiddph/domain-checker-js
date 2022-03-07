@@ -1,10 +1,8 @@
 import freenom from './vendor/freenom.js'
-import google from './vendor/google.js'
 import parseQuery from './lib/parseQuery.js'
 
 export const methods = {
   freenom,
-  google
 }
 
 export const vendors = Object.keys(methods)
