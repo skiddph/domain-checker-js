@@ -1,5 +1,5 @@
-const { ParseQueryError } = require('./Errors');
-module.exports = (query) => {
+import { ParseQueryError } from './Errors.js';
+export default (query) => {
   query = query.trim();
   const dots = query.match(/\./g)?.length || 0
   if (dots === 0) {
