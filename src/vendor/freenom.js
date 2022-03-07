@@ -1,10 +1,10 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const scrape = (tlds) => {
   const result = []
   for (let tld of tlds) {
     result.push({
-      available: !(tld.status == "NOT AVAILABLE") ? true : false,
+      available: !(tld.status == "NOT AVAILABLE" || tld.status === null) ? true : false,
       sld: tld.domain,
       tld: tld.tld,
       currency: tld.currency,
@@ -14,12 +14,12 @@ const scrape = (tlds) => {
   return result
 }
 
-module.exports = async function (opts) {
+export default async function (opts) {
   const { tld, domain } = opts;
   const url = "https://my.freenom.com/includes/domains/fn-available.php"
   const website = "https://www.freenom.com"
   const title = "Freenom"
-  
+
   // RESPONSE FORMAT
   const res = {
     success: false,
@@ -33,11 +33,11 @@ module.exports = async function (opts) {
   return await axios({
     url,
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    data: `domain=${domain}&tld=${tld}`,
+    data: `domain=${domain}${tld ? '&tld=' + tld : ''}`,
     method: "POST"
   })
     .then(e => {
-      let tlds = []; if (e.data?.top_domain) tlds.push(e.data.top_domain);
+      let tlds = []; if (e.data?.top_domain && !e.data?.top_domain.dont_show) tlds.push(e.data.top_domain);
       res.result = scrape([ ...tlds, ...e.data?.free_domains, ...e.data?.paid_domains ])
       res.success = true;
       res.error = false;

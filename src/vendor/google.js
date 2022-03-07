@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const scrape = (items) => {
   const result = []
@@ -12,28 +12,28 @@ const scrape = (items) => {
         item?.supportedResultInfo?.purchaseInfo?.pricing?.normalPricing?.renewPrice?.currencyCode ||
         item?.supportedResultInfo?.purchaseInfo?.pricing?.normalPricing?.transferPrice?.currencyCode
       ) || (
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.registerPrice?.currencyCode ||
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.renewPrice?.currencyCode ||
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.transferPrice?.currencyCode
-      ) || "USD",
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.registerPrice?.currencyCode ||
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.renewPrice?.currencyCode ||
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.transferPrice?.currencyCode
+        ) || "USD",
       price: (
         item?.supportedResultInfo?.purchaseInfo?.pricing?.normalPricing?.registerPrice?.units ||
         item?.supportedResultInfo?.purchaseInfo?.pricing?.normalPricing?.renewPrice?.units ||
         item?.supportedResultInfo?.purchaseInfo?.pricing?.normalPricing?.transferPrice?.units
       ) || (
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.registerPrice?.units ||
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.renewPrice?.units ||
-        item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.transferPrice?.units
-      ) || 0
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.registerPrice?.units ||
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.renewPrice?.units ||
+          item?.supportedResultInfo?.purchaseInfo?.pricing?.registryPremiumPricing?.transferPrice?.units
+        ) || 0
     })
   }
   return result
 }
 
-module.exports = async function (opts) {
-  const { tld, domain } = opts;
+export default async function (opts) {
+  const { tld, domain, cors } = opts;
   const query = tld ? `${domain}.${tld}` : domain;
-  const url = "https://domains.google.com/v1/Main/FeSearchService/Search"
+  const url = (cors || "") + "https://domains.google.com/v1/Main/FeSearchService/Search"
   const website = "https://domains.google.com"
   const title = "Google Domains"
 
