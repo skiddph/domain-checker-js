@@ -1,7 +1,5 @@
-const check = require('../src');
-
-module.exports = async function(query, vendor) {
-
+import check from '../src';
+export default async function(query, vendor) {
   await check(query)[ vendor ]()
     .then(e => {
       if (e.success) {
