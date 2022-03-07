@@ -37,7 +37,7 @@ export default async function (opts) {
     method: "POST"
   })
     .then(e => {
-      let tlds = []; if (e.data?.top_domain) tlds.push(e.data.top_domain);
+      let tlds = []; if (e.data?.top_domain && !e.data?.top_domain.dont_show) tlds.push(e.data.top_domain);
       res.result = scrape([ ...tlds, ...e.data?.free_domains, ...e.data?.paid_domains ])
       res.success = true;
       res.error = false;
