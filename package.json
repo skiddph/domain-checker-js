@@ -1,6 +1,6 @@
 {
   "name": "@skiddph/domain-checker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Check domain availability and prices across different domain resellers and registrar",
   "main": "src/index.js",
   "scripts": {
