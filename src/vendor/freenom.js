@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const scrape = (tlds) => {
   const result = []
@@ -14,12 +14,12 @@ const scrape = (tlds) => {
   return result
 }
 
-module.exports = async function (opts) {
+export default async function (opts) {
   const { tld, domain } = opts;
   const url = "https://my.freenom.com/includes/domains/fn-available.php"
   const website = "https://www.freenom.com"
   const title = "Freenom"
-  
+
   // RESPONSE FORMAT
   const res = {
     success: false,
@@ -33,7 +33,7 @@ module.exports = async function (opts) {
   return await axios({
     url,
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    data: `domain=${domain}&tld=${tld}`,
+    data: `domain=${domain}${tld ? '&tld=' + tld : ''}`,
     method: "POST"
   })
     .then(e => {
