@@ -1,4 +1,6 @@
+import test from './test.js'
+
 const query = 'firebase-amazing-app.app' 
 const vendor = 'google' // Google Domains
 
-require('./test')(query, vendor)
+test(query, vendor)
