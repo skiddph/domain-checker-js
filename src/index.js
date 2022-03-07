@@ -7,7 +7,7 @@ export const methods = {
 
 export const vendors = Object.keys(methods)
 
-const check = (query) => {
+export const domainChecker = (query) => {
   const { domain, tld } = parseQuery(query);
   const res = {}
   for (let vendor of vendors) {
@@ -16,4 +16,4 @@ const check = (query) => {
   return res
 }
 
-export default check
+export default domainChecker
