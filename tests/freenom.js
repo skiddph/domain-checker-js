@@ -1,4 +1,6 @@
+import test from './test.js'
+
 const query = 'unknown-being-detector.ml'
 const vendor = 'freenom'
 
-require('./test')(query, vendor)
+test(query, vendor)
