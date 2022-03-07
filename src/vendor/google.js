@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const scrape = (items) => {
   const result = []
@@ -30,10 +30,10 @@ const scrape = (items) => {
   return result
 }
 
-module.exports = async function (opts) {
+export default async function (opts) {
   const { tld, domain } = opts;
   const query = tld ? `${domain}.${tld}` : domain;
-  const url = "https://domains.google.com/v1/Main/FeSearchService/Search"
+  const url = "https://cors-anywhere.herokuapp.com/https://domains.google.com/v1/Main/FeSearchService/Search"
   const website = "https://domains.google.com"
   const title = "Google Domains"
 
